@@ -27,13 +27,20 @@ const p = new Promise(function (resolve, reject) {
   }, 2000);
 });
 
-p.then(data => {
+p.then((data) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       data.modified = true;
       resolve(data);
     }, 2000);
   });
-}).then(clientData => {
-    console.log('Data received', clientData)
 })
+  .catch(err => console.error("Error: ", err))
+  .then((clientData) => {
+    console.log("Data received", clientData);
+    clientData.fromPromise = true;
+    return clientData;
+  })
+  .then((data) => {
+    console.log("Modified".data);
+  });
